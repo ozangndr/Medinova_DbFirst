@@ -282,6 +282,7 @@
     <Content Include="Areas\DoctorArea\Views\Appointment\Index.cshtml" />
     <Content Include="Areas\DoctorArea\Views\User\Index.cshtml" />
     <Content Include="Areas\Admin\Views\User\Profile.cshtml" />
+    <Content Include="secrets.json" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
