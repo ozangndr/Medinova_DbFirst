@@ -1,0 +1,94 @@
+﻿@model Medinova.Models.Doctor
+@{
+    ViewBag.Title = "Yeni Doktor Kaydı";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow border-0">
+        <div class="card-header bg-primary text-white py-3">
+            <h4 class="mb-0"><i class="fas fa-user-md me-2"></i>Yeni Doktor ve Kullanıcı Kaydı</h4>
+        </div>
+        <div class="card-body p-4">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="row">
+                        <div class="col-md-6 border-end">
+                            <h5 class="text-primary border-bottom pb-2 mb-3">Hesap ve Kimlik Bilgileri</h5>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Ad</label>
+                                    <input type="text" name="FirstName" class="form-control" placeholder="Ad" required />
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Soyad</label>
+                                    <input type="text" name="LastName" class="form-control" placeholder="Soyad" required />
+                                </div>
+                            </div>                            
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Sisteme Giriş Şifresi</label>
+                                <input type="password" name="Password" class="form-control" placeholder="******" required />
+                                <small class="text-muted">Doktor bu şifre ile sisteme giriş yapacaktır.</small>
+                            </div>
+
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model.DepartmentId, "Uzmanlık Departmanı", new { @class = "form-label fw-bold" })
+                                @Html.DropDownList("DepartmentId", null, "-- Departman Seçiniz --", htmlAttributes: new { @class = "form-select", required = "required" })
+                                @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 ps-md-4">
+                            <h5 class="text-primary border-bottom pb-2 mb-3">Profil Detayları</h5>
+
+                            <div class="form-group mb-3">
+                                @Html.LabelFor(model => model.ImageUrl, "Doktor Profil Resmi (URL)", new { @class = "form-label fw-bold" })
+                                @Html.EditorFor(model => model.ImageUrl, new { htmlAttributes = new { @class = "form-control", placeholder = "https://...", id = "imageUrl" } })
+                                @Html.ValidationMessageFor(model => model.ImageUrl, "", new { @class = "text-danger" })
+                                <div class="mt-2 text-center">
+                                    <img id="imgPreview" src="https://via.placeholder.com/150?text=Resim+Yok" class="img-thumbnail shadow-sm" style="height: 120px; width: 120px; object-fit: cover;">
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                @Html.LabelFor(model => model.Description, "Doktor Özgeçmiş / Açıklama", new { @class = "form-label fw-bold" })
+                                @Html.TextAreaFor(model => model.Description, new
+                                {
+                                    @class = "form-control",
+                                    @rows = "4",
+                                    @placeholder = "Doktorun eğitimi, deneyimleri hakkında kısa bilgi...",
+                                    @style = "resize:none;"
+                                })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 border-top pt-3 text-end">
+                        <a href="@Url.Action("Index")" class="btn btn-outline-secondary me-2 px-4">
+                            <i class="fas fa-undo"></i> Vazgeç
+                        </a>
+                        <button type="submit" class="btn btn-success px-5 shadow-sm">
+                            <i class="fas fa-check-circle me-1"></i> Doktoru ve Hesabı Oluştur
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Resim URL'si girildiğinde önizleme yapma
+        document.getElementById('imageUrl').addEventListener('input', function () {
+            document.getElementById('imgPreview').src = this.value || 'https://via.placeholder.com/150?text=Resim+Yok';
+        });
+    </script>
+}

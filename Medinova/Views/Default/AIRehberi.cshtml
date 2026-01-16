@@ -1,0 +1,83 @@
+﻿
+<div class="container-fluid bg-primary my-5 py-5">
+    <div class="container py-5">
+        <div class="text-center mx-auto mb-5" style="max-width: 600px;">
+            <h5 class="d-inline-block text-white text-uppercase border-bottom border-5">Medinova Akıllı Asistan</h5>
+            <h1 class="display-4 mb-4 text-white">Size Nasıl Yardımcı Olabilirim?</h1>
+        </div>
+        <div class="mx-auto" style="width: 100%; max-width: 700px;">
+            <div class="input-group shadow-lg rounded-pill overflow-hidden bg-white p-2">
+                <input type="text" id="userComplaint" class="form-control border-0 ps-4" style="height: 60px;" placeholder="Örn: Şiddetli baş ağrısı ve halsizliğim var...">
+                <button onclick="askToAI()" class="btn btn-dark px-5 rounded-pill shadow-sm">
+                    <i class="fas fa-magic me-2"></i> Analiz Et
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="aiModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header bg-dark text-white border-0">
+                <h5 class="modal-title"><i class="fas fa-robot me-2 text-primary"></i> AI Rehber Yanıtı</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4 text-center">
+                <div id="aiLoader">
+                    <div class="spinner-grow text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+                    <p class="mt-3 fw-bold text-muted">Yapay zeka belirtileri analiz ediyor...</p>
+                </div>
+                <div id="aiResultText" class="text-start d-none">
+                    <div class="p-3 bg-light rounded border-start border-5 border-primary mb-3">
+                        <i class="fas fa-quote-left text-primary opacity-25"></i>
+                        <p id="responseText" class="mb-0 fs-5 italic"></p>
+                    </div>
+                    <div class="alert alert-warning small">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Bu bir tıbbi tavsiye değildir. Lütfen uzman bir doktora danışın.
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Kapat</button>
+                <a href="/Appointment/Index" class="btn btn-primary rounded-pill px-4">Randevu Al</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function askToAI() {
+        var query = $("#userComplaint").val();
+        if (query.length < 10) {
+            alert("Lütfen durumunuzu biraz daha detaylı anlatın.");
+            return;
+        }
+
+        // Modal'ı göster ve yükleniyor animasyonunu başlat
+        $("#aiLoader").removeClass("d-none");
+        $("#aiResultText").addClass("d-none");
+        var myModal = new bootstrap.Modal(document.getElementById('aiModal'));
+        myModal.show();
+
+        // AJAX isteği
+        $.ajax({
+            url: '/Default/GetAIResponse', // Controller yolunuz
+            type: 'POST',
+            data: { message: query },
+            success: function (data) {
+                $("#aiLoader").addClass("d-none");
+                $("#responseText").text(data); // OpenAI'dan gelen cevap buraya basılır
+                $("#aiResultText").removeClass("d-none");
+            },
+            error: function () {
+                $("#aiLoader").addClass("d-none");
+                $("#responseText").text("OpenAI servisine şu an ulaşılamıyor.");
+                $("#aiResultText").removeClass("d-none");
+            }
+        });
+    }
+</script>
+
+

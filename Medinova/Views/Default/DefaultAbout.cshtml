@@ -1,0 +1,41 @@
+﻿@model Medinova.Models.About
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="row gx-5">
+            <div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
+                <div class="position-relative h-100">
+                    <img class="position-absolute w-100 h-100 rounded" src="@Model.ImageUrl"
+                         style="object-fit: cover;">
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="mb-4">
+                    <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Hakkımızda</h5>
+                    <h1 class="display-4"> @Model.Title</h1>
+                </div>
+                <p>
+                    @Model.Description
+                </p>
+                <div class="row g-3 pt-3">
+                    @foreach (var item in ViewBag.items)
+                    {
+                        <div class="col-sm-3 col-6">
+                            <div class="bg-light text-center rounded-circle py-4 shadow-sm" style="width: 200px; height: 200px; margin: auto;">
+                                <img src="@item.Icon"
+                                     alt="@item.Name"
+                                     class="rounded-circle mb-3"
+                                     style="width: 80px; height: 80px; object-fit: cover; border: 3px solid #eff5f9;">
+
+                                <h6 class="mb-0">
+                                    @item.Name
+                                    <small class="d-block text-primary">@item.Name</small>
+                                </h6>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

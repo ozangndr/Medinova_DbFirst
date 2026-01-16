@@ -1,0 +1,31 @@
+﻿@model Medinova.DTOs.LoginDto
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="~/Content/bootstrap.rtl.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+        <div class="container">
+            <h4>Giriş Sayfası</h4>
+            <form method="post">
+                <label>Kullanıcı Adı</label>
+                @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+                <br />
+                <label>Şifre</label>
+                <input type="password" name="Password" class="form-control" />
+                <br />
+                <span class="text-danger">@Html.ValidationSummary()</span>
+                <button type="submit" class="btn btn-primary">Giriş Yap</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="844c5f247af84a8585dac30289e79035" Name="Diagram1">
+        <EntityTypeShape EntityType="MedinovaDbModel.AboutItem" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MedinovaDbModel.About" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MedinovaDbModel.Appointment" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MedinovaDbModel.Banner" Width="1.5" PointX="6.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MedinovaDbModel.Date" Width="1.5" PointX="8.375" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MedinovaDbModel.Department" Width="1.5" PointX="2.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MedinovaDbModel.Doctor" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MedinovaDbModel.sysdiagram" Width="1.5" PointX="13" PointY="0.625" />
+        <AssociationConnector Association="MedinovaDbModel.FK_Appointments_Doctors" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="MedinovaDbModel.FK_Doctors_Departments" />
+        <EntityTypeShape EntityType="MedinovaDbModel.User" Width="1.5" PointX="8.5" PointY="2.875" />
+        <EntityTypeShape EntityType="MedinovaDbModel.UserRole" Width="1.5" PointX="6.25" PointY="3.875" />
+        <AssociationConnector Association="MedinovaDbModel.FK_Users_UserRoles" />
+        <EntityTypeShape EntityType="MedinovaDbModel.PriceItem" Width="1.5" PointX="5.625" PointY="6.875" />
+        <EntityTypeShape EntityType="MedinovaDbModel.Price" Width="1.5" PointX="3.375" PointY="7" />
+        <AssociationConnector Association="MedinovaDbModel.FK_PriceItems_Prices" />
+        <EntityTypeShape EntityType="MedinovaDbModel.Blog" Width="1.5" PointX="11.125" PointY="10.25" />
+        <EntityTypeShape EntityType="MedinovaDbModel.Contact" Width="1.5" PointX="11.125" PointY="12.875" />
+        <EntityTypeShape EntityType="MedinovaDbModel.Service" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="MedinovaDbModel.Testimonial" Width="1.5" PointX="11.125" PointY="7.25" />
+        <AssociationConnector Association="MedinovaDbModel.FK_Blogs_Users" />
+        <AssociationConnector Association="MedinovaDbModel.FK_Contacts_Users" />
+        <AssociationConnector Association="MedinovaDbModel.FK_Testimonials_Users" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

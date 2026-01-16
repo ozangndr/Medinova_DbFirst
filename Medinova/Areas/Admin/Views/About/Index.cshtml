@@ -1,0 +1,76 @@
+﻿@model Medinova.Models.About
+@{
+    ViewBag.Title = "Hakkımızda Yönetimi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow border-0">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0"><i class="fas fa-info-circle me-2"></i>Hakkımızda Bilgilerini Güncelle</h4>
+        </div>
+        <div class="card-body p-4">
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success border-0 shadow-sm">
+                    <i class="fas fa-check-circle me-2"></i> @TempData["Success"]
+                </div>
+            }
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.AboutId)
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.Title, "Başlık", new { @class = "form-label fw-bold" })
+                            @Html.TextBoxFor(m => m.Title, new { @class = "form-control form-control-lg", placeholder = "Sayfa başlığını girin..." })
+                            @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.Description, "Açıklama", new { @class = "form-label fw-bold" })
+                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows = "8", placeholder = "Hakkımızda metnini buraya yazın..." })
+                            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 text-center">
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.ImageUrl, "Görsel URL", new { @class = "form-label fw-bold" })
+                            @Html.TextBoxFor(m => m.ImageUrl, new { @class = "form-control mb-2", id = "imgInput", placeholder = "https://..." })
+
+                            <div class="mt-3 p-2 border rounded bg-light">
+                                <small class="text-muted d-block mb-2">Görsel Önizleme</small>
+                                <img src="@(string.IsNullOrEmpty(Model.ImageUrl) ? "https://via.placeholder.com/300x200?text=Resim+Yok" : Model.ImageUrl)"
+                                     id="imgPreview"
+                                     class="img-fluid rounded shadow-sm"
+                                     style="max-height: 200px; object-fit: cover;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="text-end mt-3">
+                    <button type="submit" class="btn btn-primary btn-lg px-5 shadow">
+                        <i class="fas fa-save me-2"></i>Değişiklikleri Kaydet
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // URL kutusuna yeni link yapıştırıldığında önizlemeyi anlık değiştirir
+        document.getElementById('imgInput').addEventListener('input', function () {
+            document.getElementById('imgPreview').src = this.value || 'https://via.placeholder.com/300x200?text=Resim+Yok';
+        });
+    </script>
+}

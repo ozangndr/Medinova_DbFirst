@@ -1,0 +1,133 @@
+﻿@model IEnumerable<Medinova.Models.User>
+@{
+    ViewBag.Title = "Kullanıcı Yönetimi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    @* ... Başlık ve Yeni Ekle Butonu Kısmı Aynı ... *@
+
+    <div class="card shadow border-0">
+        <div class="card-body p-0">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="ps-4">Ad Soyad</th>
+                        <th>Kullanıcı Adı</th>
+                        <th>Mevcut Rol</th>
+                        <th class="text-end pe-4">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="ps-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar-circle bg-soft-primary me-3">
+                                        @(item.FirtName.Substring(0, 1).ToUpper() + item.LastName.Substring(0, 1).ToUpper())
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold">@item.FirtName @item.LastName</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge bg-light text-dark border">@item.UserName</span>
+                            </td>
+                            <td>
+                                @if (item.UserRole == 1)
+                                {<span class="badge bg-danger">Admin</span> }
+                                else if (item.UserRole == 2)
+                                { <span class="badge bg-info">Doktor</span> }
+                                else
+                                { <span class="badge bg-secondary">Hasta</span>}
+                            </td>
+                            <td class="text-end pe-4">
+                                <div class="btn-group shadow-sm">
+                                    @* DÜZENLE YERİNE ROL ATA BUTONU *@
+                                    <button type="button" class="btn btn-sm btn-outline-primary px-3 btn-role-assign"
+                                            data-id="@item.UserId"
+                                            data-name="@item.FirtName @item.LastName"
+                                            data-role="@item.UserRole">
+                                        <i class="fas fa-user-tag me-1"></i> Rol Ata
+                                    </button>
+
+                                    <button type="button"
+                                            class="btn btn-outline-danger btn-sm d-inline-flex align-items-center px-3 btn-delete"
+                                            data-id="@item.UserId"
+                                            data-name="@item.UserName">
+                                        <i class="fas fa-trash-alt me-1"></i> Sil
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@* ROL ATAMA MODAL *@
+<div class="modal fade" id="roleModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title"><i class="fas fa-user-shield me-2"></i>Kullanıcı Rolü Ata</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            @using (Html.BeginForm("AssignRole", "User", FormMethod.Post))
+            {
+                <div class="modal-body">
+                    <input type="hidden" name="UserId" id="modalUserId" />
+                    <p class="mb-3"><strong id="modalUserName"></strong> kullanıcısı için yeni bir yetki seviyesi seçin:</p>
+
+                    <div class="list-group">
+                        <label class="list-group-item d-flex gap-3">
+                            <input class="form-check-input flex-shrink-0" type="radio" name="UserRole" value="1" id="role1">
+                            <span><strong class="d-block text-danger">Admin</strong><small>Tüm sisteme tam erişim sağlar.</small></span>
+                        </label>
+                        <label class="list-group-item d-flex gap-3">
+                            <input class="form-check-input flex-shrink-0" type="radio" name="UserRole" value="2" id="role2">
+                            <span><strong class="d-block text-info">Doktor</strong><small>Randevu ve hasta bilgilerini yönetebilir.</small></span>
+                        </label>
+                        <label class="list-group-item d-flex gap-3">
+                            <input class="form-check-input flex-shrink-0" type="radio" name="UserRole" value="3" id="role3">
+                            <span><strong class="d-block text-secondary">Hasta</strong><small>Sadece kendi randevularını görebilir.</small></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+                    <button type="submit" class="btn btn-primary">Değişiklikleri Kaydet</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Rol Ata Butonuna tıklandığında Modal'ı doldur ve aç
+        $('.btn-role-assign').click(function () {
+            const id = $(this).data('id');
+            const name = $(this).data('name');
+            const currentRole = $(this).data('role');
+
+            $('#modalUserId').val(id);
+            $('#modalUserName').text(name);
+
+            // Mevcut rolü seçili getir
+            $(`input[name="UserRole"][value="${currentRole}"]`).prop('checked', true);
+
+            $('#roleModal').modal('show');
+        });
+
+        // Silme işlemi aynı kalabilir
+        $('.btn-delete').click(function () {
+            // ... (önceki silme scriptin aynısı) ...
+        });
+    </script>
+}

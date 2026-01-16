@@ -1,0 +1,51 @@
+﻿@model List<Medinova.Models.Price>
+
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5" style="max-width: 500px;">
+            <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Tıbbi Paketler</h5>
+            <h1 class="display-4">Harika Sağlık Programları</h1>
+        </div>
+        <div class="owl-carousel price-carousel position-relative" style="padding: 0 45px 45px 45px;">
+
+            @foreach (var price in Model)
+            {
+                <div class="bg-light rounded text-center shadow-sm">
+                    @* Üst Kısım: Fiyat ve Başlık *@
+                    <div class="position-relative" style="height: 200px; background: #1d2a4d; border-top-left-radius: .25rem; border-top-right-radius: .25rem;">
+                        @* Eğer resmin varsa buraya bir img etiketi ekleyebilirsin, yoksa arka plan rengi korur *@
+                        <div class="position-absolute w-100 h-100 top-50 start-50 translate-middle d-flex flex-column align-items-center justify-content-center">
+
+                          
+                           
+
+                            <h1 class="display-4 text-white mb-0">
+                                <small class="align-top fw-normal" style="font-size: 22px; line-height: 45px;">₺</small>
+                                @price.Price1
+                                <small class="align-bottom fw-normal" style="font-size: 16px; line-height: 40px;">/ Yıl</small>
+                            </h1>
+                        </div>
+                    </div>
+
+                    @* Alt Kısım: Paket İçeriği *@
+                    <div class="text-center py-5 px-3">
+                        @if (price.PriceItems != null && price.PriceItems.Any())
+                        {
+                            foreach (var item in price.PriceItems)
+                            {
+                                <p class="text-muted border-bottom pb-2">@item.Title</p>
+                            }
+                        }
+                        else
+                        {
+                            <p class="text-muted border-bottom pb-2">Hizmet bilgisi eklenmemiş.</p>
+                        }
+
+                        <a href="#!" class="btn btn-primary rounded-pill py-3 px-5 my-4">Hemen Başvur</a>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
