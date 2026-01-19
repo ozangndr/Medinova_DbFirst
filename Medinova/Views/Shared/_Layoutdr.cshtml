@@ -17,7 +17,7 @@
             </button>
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Ana Sayfa", "Index", "Home", new { area = "DoctorArea" }, new { @class = "nav-link" })</li>
+                    <li><a href="@Url.Action("Logout", "Account", new { area = "" })" class="nav-link text-warning"><i class="fa fa-home me-1"></i> Web Sitesine Dön</a></li>
                     
                     <li>@Html.ActionLink("Randevular", "Index", "Appointment", new { area = "DoctorArea" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Kullanıcı Bilgileri ", "Index", "User", new { area = "DoctorArea" }, new { @class = "nav-link" })</li>

@@ -31,7 +31,23 @@ namespace Medinova.Controllers
             FormsAuthentication.SetAuthCookie(user.UserName, false);
             Session["UserName"] = user.FirtName + " " + user.LastName;
             Session["UserId"] = user.UserId;
-            return RedirectToAction("Index", "AdminAbout");
+            var userRole = context.UserRoles.Find(user.UserRole);
+            string roleName = userRole.RoleName;
+            Session["UserRole"] = roleName;
+
+            if (roleName == "Admin")
+            {
+                // Admin Areasındaki About Controller -> Index Action
+                return RedirectToAction("Index", "About", new { area = "Admin" });
+            }
+            else if (roleName == "Doctor")
+            {
+                // DoctorArea Areasındaki Appointment Controller -> Index Action
+                return RedirectToAction("Index", "Appointment", new { area = "DoctorArea" });
+            }
+
+            // Eğer rol eşleşmezse varsayılan bir yere yönlendir
+            return RedirectToAction("Index", "Home");
 
         }
 

@@ -142,6 +142,7 @@
     <Compile Include="Areas\Admin\Controllers\BannerController.cs" />
     <Compile Include="Areas\Admin\Controllers\DepartmentController.cs" />
     <Compile Include="Areas\Admin\Controllers\DoctorController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ServiceController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\DoctorArea\Controllers\AppointmentController.cs" />
     <Compile Include="Areas\DoctorArea\Controllers\UserController.cs" />
@@ -283,6 +284,9 @@
     <Content Include="Areas\DoctorArea\Views\User\Index.cshtml" />
     <Content Include="Areas\Admin\Views\User\Profile.cshtml" />
     <Content Include="secrets.json" />
+    <Content Include="Areas\Admin\Views\Service\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Service\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Service\Update.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />

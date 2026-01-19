@@ -99,7 +99,39 @@
                         <a href="#testimonial" class="nav-item nav-link">Referanslar</a>
                         <a href="#price" class="nav-item nav-link">Paketler</a>
                         <a href="#ai" class="nav-item nav-link">Yapay Zekaya Sor</a>
-                       
+                        @if (Context.User.Identity.IsAuthenticated)
+                        {
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle text-primary fw-bold" data-bs-toggle="dropdown">
+                                    <i class="fa fa-user-circle me-1"></i> @Session["UserName"]
+                                </a>
+                                <div class="dropdown-menu m-0 shadow-sm border-0">
+                                    @if (Session["UserRole"]?.ToString() == "Admin")
+                                    {
+                                        <a href="@Url.Action("Index", "About", new { area = "Admin" })" class="dropdown-item">
+                                            <i class="fa fa-tachometer-alt me-2"></i>Admin Paneli
+                                        </a>
+                                    }
+                                    else if (Session["UserRole"]?.ToString() == "Doctor")
+                                    {
+                                        <a href="@Url.Action("Index", "Appointment", new { area = "DoctorArea" })" class="dropdown-item">
+                                            <i class="fa fa-calendar-check me-2"></i>Doktor Paneli
+                                        </a>
+                                    }
+                                    <hr class="dropdown-divider">
+                                    <a href="@Url.Action("Logout", "Account")" class="dropdown-item text-danger">
+                                        <i class="fa fa-sign-out-alt me-2"></i>Çıkış Yap
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Login", "Account")" class="nav-item nav-link border-start ms-lg-3 ps-lg-4 text-primary">
+                                <i class="fa fa-lock me-1"></i> Giriş Yap
+                            </a>
+                        }
+
                     </div>
                 </div>
             </nav>

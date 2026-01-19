@@ -4,28 +4,123 @@
 }
 
 <!DOCTYPE html>
-
-<html>
+<html lang="tr">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Login</title>
-    <link href="~/Content/bootstrap.rtl.min.css" rel="stylesheet" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Medinova - Kullanıcı Girişi</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+    <link href="~/Templates/Medinova-1.0.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #eff5f9 0%, #d6e4f0 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+
+        .login-card {
+            background: #ffffff;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            padding: 2.5rem;
+        }
+
+            .login-card .brand-logo {
+                font-family: 'Roboto Condensed', sans-serif;
+                color: #13C2C2; /* Medinova Primary Color */
+                font-weight: 700;
+                font-size: 2rem;
+                text-align: center;
+                margin-bottom: 1.5rem;
+            }
+
+        .btn-primary {
+            background-color: #13C2C2;
+            border-color: #13C2C2;
+            padding: 12px;
+            font-weight: 700;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+
+            .btn-primary:hover {
+                background-color: #0e9a9a;
+                transform: translateY(-2px);
+            }
+
+        .form-control {
+            border-radius: 50px;
+            padding: 12px 20px;
+            background-color: #f8f9fa;
+        }
+
+            .form-control:focus {
+                box-shadow: 0 0 10px rgba(19, 194, 194, 0.2);
+                border-color: #13C2C2;
+            }
+
+        .validation-summary-errors ul {
+            list-style: none;
+            padding: 0;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <div class="container">
-            <h4>Giriş Sayfası</h4>
-            <form method="post">
-                <label>Kullanıcı Adı</label>
-                @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
-                <br />
-                <label>Şifre</label>
-                <input type="password" name="Password" class="form-control" />
-                <br />
-                <span class="text-danger">@Html.ValidationSummary()</span>
-                <button type="submit" class="btn btn-primary">Giriş Yap</button>
-            </form>
+
+    <div class="login-card">
+        <div class="brand-logo">
+            <i class="fa fa-clinic-medical me-2"></i>MEDINOVA
         </div>
+        <h5 class="text-center text-muted mb-4">Hoş Geldiniz</h5>
+
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+        {
+            <div class="mb-3">
+                <label class="form-label small fw-bold">Kullanıcı Adı</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-end-0 rounded-start-pill">
+                        <i class="fa fa-user text-muted"></i>
+                    </span>
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control border-start-0 rounded-end-pill", placeholder = "Kullanıcı adınız" })
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label small fw-bold">Şifre</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-end-0 rounded-start-pill">
+                        <i class="fa fa-lock text-muted"></i>
+                    </span>
+                    <input type="password" name="Password" class="form-control border-start-0 rounded-end-pill" placeholder="••••••••" />
+                </div>
+            </div>
+
+            <div class="text-danger mb-3 text-center">
+                @Html.ValidationSummary(true)
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 mb-3 shadow">
+                SİSTEME GİRİŞ YAP
+            </button>
+
+            <div class="text-center">
+                <a href="/Default/Index" class="text-decoration-none small text-muted">
+                    <i class="fa fa-arrow-left me-1"></i> Web Sitesine Dön
+                </a>
+            </div>
+        }
     </div>
+
 </body>
 </html>
