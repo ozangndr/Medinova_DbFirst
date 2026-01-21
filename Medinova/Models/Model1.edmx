@@ -19,7 +19,7 @@
           </Key>
           <Property Name="AboutId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" />
-          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
           <Property Name="ImageUrl" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Appointments">
@@ -93,14 +93,16 @@
           </Key>
           <Property Name="PriceItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PriceId" Type="int" />
-          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Prices">
           <Key>
             <PropertyRef Name="PriceId" />
           </Key>
           <Property Name="PriceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
           <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="Services">
           <Key>
@@ -374,12 +376,6 @@
             <End Role="UserRole" EntitySet="UserRoles" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
-          <EntitySet Name="PriceItems" EntityType="MedinovaDbModel.PriceItem" />
-          <EntitySet Name="Prices" EntityType="MedinovaDbModel.Price" />
-          <AssociationSet Name="FK_PriceItems_Prices" Association="MedinovaDbModel.FK_PriceItems_Prices">
-            <End Role="Price" EntitySet="Prices" />
-            <End Role="PriceItem" EntitySet="PriceItems" />
-          </AssociationSet>
           <EntitySet Name="Blogs" EntityType="MedinovaDbModel.Blog" />
           <EntitySet Name="Contacts" EntityType="MedinovaDbModel.Contact" />
           <EntitySet Name="Services" EntityType="MedinovaDbModel.Service" />
@@ -395,6 +391,12 @@
           <AssociationSet Name="FK_Testimonials_Users" Association="MedinovaDbModel.FK_Testimonials_Users">
             <End Role="User" EntitySet="Users" />
             <End Role="Testimonial" EntitySet="Testimonials" />
+          </AssociationSet>
+          <EntitySet Name="PriceItems" EntityType="MedinovaDbModel.PriceItem" />
+          <EntitySet Name="Prices" EntityType="MedinovaDbModel.Price" />
+          <AssociationSet Name="FK_PriceItems_Prices" Association="MedinovaDbModel.FK_PriceItems_Prices">
+            <End Role="Price" EntitySet="Prices" />
+            <End Role="PriceItem" EntitySet="PriceItems" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="sysdiagram">
@@ -463,35 +465,6 @@
             </Principal>
             <Dependent Role="User">
               <PropertyRef Name="UserRole" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="PriceItem">
-          <Key>
-            <PropertyRef Name="PriceItemId" />
-          </Key>
-          <Property Name="PriceItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PriceId" Type="Int32" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Price" Relationship="MedinovaDbModel.FK_PriceItems_Prices" FromRole="PriceItem" ToRole="Price" />
-        </EntityType>
-        <EntityType Name="Price">
-          <Key>
-            <PropertyRef Name="PriceId" />
-          </Key>
-          <Property Name="PriceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Price1" Type="Decimal" Precision="18" Scale="2" />
-          <NavigationProperty Name="PriceItems" Relationship="MedinovaDbModel.FK_PriceItems_Prices" FromRole="Price" ToRole="PriceItem" />
-        </EntityType>
-        <Association Name="FK_PriceItems_Prices">
-          <End Type="MedinovaDbModel.Price" Role="Price" Multiplicity="0..1" />
-          <End Type="MedinovaDbModel.PriceItem" Role="PriceItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Price">
-              <PropertyRef Name="PriceId" />
-            </Principal>
-            <Dependent Role="PriceItem">
-              <PropertyRef Name="PriceId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -568,6 +541,37 @@
             </Principal>
             <Dependent Role="Testimonial">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PriceItem">
+          <Key>
+            <PropertyRef Name="PriceItemId" />
+          </Key>
+          <Property Name="PriceItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PriceId" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Price" Relationship="MedinovaDbModel.FK_PriceItems_Prices" FromRole="PriceItem" ToRole="Price" />
+        </EntityType>
+        <EntityType Name="Price">
+          <Key>
+            <PropertyRef Name="PriceId" />
+          </Key>
+          <Property Name="PriceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price1" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="PriceItems" Relationship="MedinovaDbModel.FK_PriceItems_Prices" FromRole="Price" ToRole="PriceItem" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_PriceItems_Prices">
+          <End Type="MedinovaDbModel.Price" Role="Price" Multiplicity="0..1" />
+          <End Type="MedinovaDbModel.PriceItem" Role="PriceItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Price">
+              <PropertyRef Name="PriceId" />
+            </Principal>
+            <Dependent Role="PriceItem">
+              <PropertyRef Name="PriceId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -679,23 +683,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PriceItems">
-            <EntityTypeMapping TypeName="MedinovaDbModel.PriceItem">
-              <MappingFragment StoreEntitySet="PriceItems">
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="PriceId" ColumnName="PriceId" />
-                <ScalarProperty Name="PriceItemId" ColumnName="PriceItemId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Prices">
-            <EntityTypeMapping TypeName="MedinovaDbModel.Price">
-              <MappingFragment StoreEntitySet="Prices">
-                <ScalarProperty Name="Price1" ColumnName="Price" />
-                <ScalarProperty Name="PriceId" ColumnName="PriceId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Blogs">
             <EntityTypeMapping TypeName="MedinovaDbModel.Blog">
               <MappingFragment StoreEntitySet="Blogs">
@@ -734,6 +721,25 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="TestimonialId" ColumnName="TestimonialId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PriceItems">
+            <EntityTypeMapping TypeName="MedinovaDbModel.PriceItem">
+              <MappingFragment StoreEntitySet="PriceItems">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PriceId" ColumnName="PriceId" />
+                <ScalarProperty Name="PriceItemId" ColumnName="PriceItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prices">
+            <EntityTypeMapping TypeName="MedinovaDbModel.Price">
+              <MappingFragment StoreEntitySet="Prices">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Price1" ColumnName="Price" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="PriceId" ColumnName="PriceId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

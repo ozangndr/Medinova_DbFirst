@@ -35,11 +35,11 @@ namespace Medinova.Models
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
-        public virtual DbSet<PriceItem> PriceItems { get; set; }
-        public virtual DbSet<Price> Prices { get; set; }
         public virtual DbSet<Blog> Blogs { get; set; }
         public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<Service> Services { get; set; }
         public virtual DbSet<Testimonial> Testimonials { get; set; }
+        public virtual DbSet<PriceItem> PriceItems { get; set; }
+        public virtual DbSet<Price> Prices { get; set; }
     }
 }

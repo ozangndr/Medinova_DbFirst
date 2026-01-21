@@ -19,9 +19,6 @@
         <EntityTypeShape EntityType="MedinovaDbModel.User" Width="1.5" PointX="8.5" PointY="2.875" />
         <EntityTypeShape EntityType="MedinovaDbModel.UserRole" Width="1.5" PointX="6.25" PointY="3.875" />
         <AssociationConnector Association="MedinovaDbModel.FK_Users_UserRoles" />
-        <EntityTypeShape EntityType="MedinovaDbModel.PriceItem" Width="1.5" PointX="5.625" PointY="6.875" />
-        <EntityTypeShape EntityType="MedinovaDbModel.Price" Width="1.5" PointX="3.375" PointY="7" />
-        <AssociationConnector Association="MedinovaDbModel.FK_PriceItems_Prices" />
         <EntityTypeShape EntityType="MedinovaDbModel.Blog" Width="1.5" PointX="11.125" PointY="10.25" />
         <EntityTypeShape EntityType="MedinovaDbModel.Contact" Width="1.5" PointX="11.125" PointY="12.875" />
         <EntityTypeShape EntityType="MedinovaDbModel.Service" Width="1.5" PointX="0.75" PointY="7.75" />
@@ -29,6 +26,9 @@
         <AssociationConnector Association="MedinovaDbModel.FK_Blogs_Users" />
         <AssociationConnector Association="MedinovaDbModel.FK_Contacts_Users" />
         <AssociationConnector Association="MedinovaDbModel.FK_Testimonials_Users" />
+        <EntityTypeShape EntityType="MedinovaDbModel.PriceItem" Width="1.5" PointX="5.625" PointY="6.875" />
+        <EntityTypeShape EntityType="MedinovaDbModel.Price" Width="1.5" PointX="3.375" PointY="6.875" />
+        <AssociationConnector Association="MedinovaDbModel.FK_PriceItems_Prices" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -16,7 +16,7 @@ namespace Medinova.Models
     {
         public int PriceItemId { get; set; }
         public Nullable<int> PriceId { get; set; }
-        public string Title { get; set; }
+        public string Description { get; set; }
     
         public virtual Price Price { get; set; }
     }

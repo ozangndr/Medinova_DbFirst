@@ -21,7 +21,9 @@ namespace Medinova.Models
         }
     
         public int PriceId { get; set; }
+        public string Title { get; set; }
         public Nullable<decimal> Price1 { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PriceItem> PriceItems { get; set; }
